@@ -3,7 +3,7 @@
 Machine Learning DevOps Engineer Nanodegree Program
 Project: A Dynamic Risk Assessment System
 
-_________________________________________________________________________________________
+---
 
 Installation Instructions
 
@@ -18,7 +18,7 @@ conda activate  MLDOE
 Install the requirements:
 pip install -r requirements.txt
 
-_________________________________________________________________________________________
+---
 
 File Structure
 
@@ -73,7 +73,7 @@ $ tree --dirsfirst
 
 7 directories, 39 files
 
-_________________________________________________________________________________________
+---
 
 Example to Execute (with drift_must_improve_score = False)
 
@@ -387,7 +387,7 @@ Predictions:
 tn=0, fp=2, fn=2, tp=1
 Confusion matrix plot saved to the file "models/confusionmatrix.png".
 
-_________________________________________________________________________________________
+---
 
 Server Side
 
@@ -458,7 +458,7 @@ Please see https://github.com/pypa/pip/issues/5599 for advice on fixing the unde
 To avoid this problem you can invoke Python with '-m pip' instead of running pip directly.
 127.0.0.1 - - [16/Mar/2021 05:27:30] "GET /diagnostics HTTP/1.1" 200 -
 
-_________________________________________________________________________________________
+---
 
 API Returns and Confusion Matrices
 
@@ -484,7 +484,7 @@ OUTPUT 2: {'f1_score': 0.3333333333333333}
 OUTPUT 3: {'exited': {'mean': 0.5, 'median': 0.5, 'stdev': 0.5}, 'lastmonth_activity': {'mean': 5625.923076923077, 'median': 425.0, 'stdev': 19067.170236829497}, 'lastyear_activity': {'mean': 763.5384615384615, 'median': 97.5, 'stdev': 1977.4481658240022}, 'number_of_employees': {'mean': 457.46153846153845, 'median': 99.0, 'stdev': 785.0576280057029}}
 OUTPUT 4: {'na_percentages': [0.0, 0.0, 0.0, 0.0, 0.0], 'outdated_packages': {'Pillow': ['8.1.0', '8.1.0', '8.1.2'], 'pandas': ['1.2.2', '1.2.2', '1.2.3']}, 'times': [1.0206544399261475, 0.46021509170532227]}
 
-_________________________________________________________________________________________
+---
 
 Example to Execute (with drift_must_improve_score = True)
 
@@ -769,5 +769,5 @@ F1-score 0.3333333333333333 saved in file "models/latestscore.txt".
 score0=0.5714285714285715, score1=0.3333333333333333
 There is no drift. Process ended.
 
-_________________________________________________________________________________________
+---
 
