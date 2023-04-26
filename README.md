@@ -22,6 +22,7 @@ pip install -r requirements.txt
 
 File Structure
 
+```
 $ tree --dirsfirst
 .
 ├── ingesteddata
@@ -72,6 +73,7 @@ $ tree --dirsfirst
 └── wsgi.py
 
 7 directories, 39 files
+```
 
 ---
 
@@ -79,6 +81,7 @@ Example to Execute (with drift_must_improve_score = False)
 
 Given that the practice model gives a better F1-score than the final model, it was necessary to tweak the Python script fullprocess.py in order to execute the final process twice and to obtain 2 confusion matrices and 2 apireturns.txt files:
 
+```
 drift_must_improve_score = False
 
 def check_for_model_drift():
@@ -89,11 +92,13 @@ def check_for_model_drift():
     score1 = scoring.read_f1_score(load_config()['output_model_path'], 'latestscore.txt')
     print(f'score0={score0}, score1={score1}')    
     return (score1 > score0) if drift_must_improve_score else abs(score1 - score0) > 0.001
+```
 
 In this first execution of execute_full_process_twice.sh, drift can be positive and negative, but not zero: (drift_must_improve_score = False) In the second execution of execute_full_process_twice.sh, drift can be only positive, greater than zero: (drift_must_improve_score = True)
 
 Important Note: The Server Side (python app.py) must be executed before executing the script “execute_full_process_twice.sh”. Otherwise the RESTful API won’t be available.
 
+```
 $ ./execute_full_process_twice.sh 
 ===== EXECUTING execute_full_process_twice.sh =====
 echo "===== EXECUTING execute_full_process_twice.sh ====="
@@ -386,11 +391,13 @@ Predictions:
 [0, 1, 1, 0, 1]
 tn=0, fp=2, fn=2, tp=1
 Confusion matrix plot saved to the file "models/confusionmatrix.png".
+```
 
 ---
 
 Server Side
 
+```
 $ python app.py 
  * Serving Flask app "app" (lazy loading)
  * Environment: production
@@ -457,6 +464,7 @@ WARNING: pip is being invoked by an old script wrapper. This will fail in a futu
 Please see https://github.com/pypa/pip/issues/5599 for advice on fixing the underlying issue.
 To avoid this problem you can invoke Python with '-m pip' instead of running pip directly.
 127.0.0.1 - - [16/Mar/2021 05:27:30] "GET /diagnostics HTTP/1.1" 200 -
+```
 
 ---
 
@@ -470,19 +478,23 @@ API Returns and Confusion Matrices
 
 'f1_score': 0.3333333333333333
 
+```
 $ cat practicemodels/apireturns.txt 
 INPUT 1: {'location': 'testdata/testdata.csv'}
 OUTPUT 1: {"predictions": [0, 1, 1, 1, 1]}
 OUTPUT 2: {'f1_score': 0.5714285714285715}
 OUTPUT 3: {'exited': {'mean': 0.5769230769230769, 'median': 1.0, 'stdev': 0.4940474068717357}, 'lastmonth_activity': {'mean': 165.65384615384616, 'median': 73.0, 'stdev': 278.5174959713127}, 'lastyear_activity': {'mean': 1502.923076923077, 'median': 955.0, 'stdev': 2150.065274913888}, 'number_of_employees': {'mean': 26.884615384615383, 'median': 14.0, 'stdev': 30.745014509018585}}
 OUTPUT 4: {'na_percentages': [0.0, 0.0, 0.0, 0.0, 0.0], 'outdated_packages': {'Pillow': ['8.1.0', '8.1.0', '8.1.2'], 'pandas': ['1.2.2', '1.2.2', '1.2.3']}, 'times': [1.0436301231384277, 0.46016383171081543]}
+```
 
+```
 $ cat models/apireturns.txt 
 INPUT 1: {'location': 'testdata/testdata.csv'}
 OUTPUT 1: {"predictions": [0, 1, 1, 0, 1]}
 OUTPUT 2: {'f1_score': 0.3333333333333333}
 OUTPUT 3: {'exited': {'mean': 0.5, 'median': 0.5, 'stdev': 0.5}, 'lastmonth_activity': {'mean': 5625.923076923077, 'median': 425.0, 'stdev': 19067.170236829497}, 'lastyear_activity': {'mean': 763.5384615384615, 'median': 97.5, 'stdev': 1977.4481658240022}, 'number_of_employees': {'mean': 457.46153846153845, 'median': 99.0, 'stdev': 785.0576280057029}}
 OUTPUT 4: {'na_percentages': [0.0, 0.0, 0.0, 0.0, 0.0], 'outdated_packages': {'Pillow': ['8.1.0', '8.1.0', '8.1.2'], 'pandas': ['1.2.2', '1.2.2', '1.2.3']}, 'times': [1.0206544399261475, 0.46021509170532227]}
+```
 
 ---
 
@@ -490,6 +502,7 @@ Example to Execute (with drift_must_improve_score = True)
 
 In the first execution of execute_full_process_twice.sh, drift could be positive and negative, but not zero: (drift_must_improve_score = False) In this second execution of execute_full_process_twice.sh, drift can be only positive, greater than zero: (drift_must_improve_score = True). As a result, only in the first execution of “python fullprocess.py”, drift is generated. And drift is not generated in the second execution of “python fullprocess.py”. In other words, there is only 1 apireturns.txt file and 1 confusion matrix, not 2 pairs.
 
+```
 drift_must_improve_score = True
 
 def check_for_model_drift():
@@ -500,7 +513,9 @@ def check_for_model_drift():
     score1 = scoring.read_f1_score(load_config()['output_model_path'], 'latestscore.txt')
     print(f'score0={score0}, score1={score1}')    
     return (score1 > score0) if drift_must_improve_score else abs(score1 - score0) > 0.001
+```
 
+```
 $ ./execute_full_process_twice.sh 
 ===== EXECUTING execute_full_process_twice.sh =====
 echo "===== EXECUTING execute_full_process_twice.sh ====="
@@ -768,6 +783,7 @@ f1 score: 0.3333333333333333
 F1-score 0.3333333333333333 saved in file "models/latestscore.txt".
 score0=0.5714285714285715, score1=0.3333333333333333
 There is no drift. Process ended.
+```
 
 ---
 
