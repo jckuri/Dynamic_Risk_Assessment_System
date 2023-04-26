@@ -12,11 +12,15 @@ Uncompress the file “starter-file.zip”.
 Install Conda: https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html 
 
 Create a Conda Enviroment with Python 3.7
+```
 conda create -n MLDOE python=3.7
 conda activate  MLDOE
+```
 
 Install the requirements:
+```
 pip install -r requirements.txt
+```
 
 ---
 
